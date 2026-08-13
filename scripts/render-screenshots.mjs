@@ -14,10 +14,33 @@ async function capture(name, width, height, fullPage = true) {
   page.on('pageerror', (error) => errors.push(`page: ${error.message}`));
   await page.setViewport({ width, height, deviceScaleFactor: 1 });
   await page.goto('http://127.0.0.1:4173', { waitUntil: 'networkidle0' });
-  await page.evaluate(() => {
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    await Promise.all([...document.images].map((image) => image.complete ? Promise.resolve() : new Promise((resolve) => {
+      image.addEventListener('load', resolve, { once: true });
+      image.addEventListener('error', resolve, { once: true });
+    })));
     document.querySelectorAll('.reveal').forEach((element) => element.classList.add('is-visible'));
     document.documentElement.style.scrollBehavior = 'auto';
   });
+  if (fullPage) {
+    await page.evaluate(async () => {
+      const step = Math.max(420, Math.floor(window.innerHeight * .72));
+      for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+        window.scrollTo(0, y);
+        await new Promise((resolve) => setTimeout(resolve, 45));
+      }
+      window.scrollTo(0, 0);
+      await new Promise((resolve) => setTimeout(resolve, 180));
+    });
+    await page.evaluate(() => {
+      document.querySelectorAll('.reveal').forEach((element) => {
+        element.style.setProperty('opacity', '1', 'important');
+        element.style.setProperty('transform', 'none', 'important');
+        element.style.setProperty('transition', 'none', 'important');
+      });
+    });
+  }
   await page.screenshot({ path: `deliverables/${name}.png`, fullPage });
   const metrics = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,

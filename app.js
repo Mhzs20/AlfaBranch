@@ -1,8 +1,7 @@
 import '@fontsource/vazirmatn/400.css';
+import '@fontsource/vazirmatn/500.css';
 import '@fontsource/vazirmatn/600.css';
 import '@fontsource/vazirmatn/700.css';
-import '@fontsource/noto-naskh-arabic/500.css';
-import '@fontsource/noto-naskh-arabic/600.css';
 
 const header = document.querySelector('[data-header]');
 const menuButton = document.querySelector('[data-menu]');
