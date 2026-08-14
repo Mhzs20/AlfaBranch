@@ -1,7 +1,7 @@
-import puppeteer from '/tmp/zahedian-render/node_modules/puppeteer-core/lib/esm/puppeteer/puppeteer-core.js';
+import puppeteer from '/tmp/zahedian-render/node_modules/puppeteer-core/lib/puppeteer/puppeteer-core.js';
 const browser = await puppeteer.launch({
   args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
-  executablePath: '/tmp/zahedian-browsers/chromium_headless_shell-1187/chrome-linux/headless_shell',
+  executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome-stable',
   headless: true,
 });
 
