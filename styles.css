@@ -45,6 +45,7 @@ button { font: inherit; }
 
 .skip-link {
   position: absolute;
+  top: 0; left: 0;
   width: 1px; height: 1px;
   padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0, 0, 0, 0);
@@ -699,7 +700,7 @@ button { font: inherit; }
   .experience-strip article:nth-child(2n) { border-left: 0; }
   .section-shell { width: min(100% - 1.2rem, 620px); }
   .section-heading { grid-template-columns: 1fr; gap: .6rem; }
-  .service-card { display: block; }
+  .service-card { display: flex; flex-direction: column; }
   .service-media { min-height: 250px; height: 250px; }
   .portfolio { width: calc(100% - 1rem); }
   .portfolio-grid { grid-template-columns: 1fr 1fr; }
