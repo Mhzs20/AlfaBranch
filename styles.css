@@ -44,11 +44,17 @@ button { font: inherit; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 .skip-link {
-  position: fixed; top: 1rem; right: 1rem; z-index: 100;
-  padding: .8rem 1rem; background: var(--ink); color: white;
-  transform: translateY(-180%); transition: transform .2s;
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0);
+  white-space: nowrap; border: 0;
 }
-.skip-link:focus { transform: none; }
+.skip-link:focus {
+  position: fixed; top: 1rem; right: 1rem; z-index: 100;
+  width: auto; height: auto; margin: 0; clip: auto;
+  padding: .8rem 1rem; background: var(--ink); color: white;
+}
 
 .announcement {
   min-height: 36px;
@@ -247,6 +253,8 @@ button { font: inherit; }
 
 .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.15rem; }
 .service-card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--glass-border);
   background: linear-gradient(145deg, rgba(255,255,255,.7), rgba(248,232,207,.28));
   box-shadow: var(--glass-shadow), var(--glass-inner);
@@ -256,7 +264,7 @@ button { font: inherit; }
   transition: transform .35s, box-shadow .35s;
 }
 .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-.service-media { height: 250px; position: relative; overflow: hidden; }
+.service-media { height: 250px; position: relative; overflow: hidden; flex: none; }
 .service-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(24,15,10,.42)); }
 .service-media img { width: 100%; height: 100%; object-fit: cover; }
 .service-card:nth-child(2) .service-media img { object-position: center 22%; }
@@ -265,7 +273,7 @@ button { font: inherit; }
   position: absolute; z-index: 2; bottom: .85rem; left: 1rem;
   color: #f4dfb8; font-size: .55rem; letter-spacing: .16em; text-transform: uppercase;
 }
-.service-content { padding: 1.5rem 1.5rem 1.35rem; }
+.service-content { padding: 1.5rem 1.5rem 1.35rem; display: flex; flex-direction: column; flex: 1; }
 .service-content h3 { margin: 0 0 .55rem; font-size: 1.35rem; font-weight: 700; }
 .service-content p { margin: 0; color: #746151; font-size: .78rem; min-height: 4.8rem; }
 .tag-list { display: flex; flex-wrap: wrap; gap: .35rem; list-style: none; padding: 0; margin: .95rem 0 1.15rem; }
@@ -280,6 +288,7 @@ button { font: inherit; }
 }
 .service-content > a {
   display: flex; justify-content: space-between;
+  margin-top: auto;
   padding-top: .95rem;
   border-top: 1px solid rgba(148,99,35,.12);
   font-size: .72rem; font-weight: 700;
@@ -424,7 +433,9 @@ button { font: inherit; }
   background: linear-gradient(145deg, rgba(255,255,255,.64), rgba(246,226,197,.26));
   box-shadow: var(--glass-shadow), var(--glass-inner);
   backdrop-filter: blur(24px);
+  transition: transform .3s, box-shadow .3s;
 }
+.why-grid article:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
 .why-icon {
   display: grid; place-items: center;
   width: 38px; height: 38px;
@@ -509,6 +520,7 @@ button { font: inherit; }
 .signature { color: var(--gold-deep); font: italic 1.5rem Georgia, serif; direction: ltr; text-align: right; }
 .about-visual { position: relative; min-height: 620px; }
 .about-visual > img {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover; object-position: center 18%;
   border-radius: var(--radius-xl);
@@ -652,6 +664,7 @@ button { font: inherit; }
   .hero-photo-wrap { height: 460px; }
   .experience-strip { grid-template-columns: 1fr 1fr; }
   .experience-strip article:nth-child(2n) { border-left: 0; }
+  .experience-strip article:nth-child(-n+2) { border-bottom: 1px solid rgba(148,99,35,.12); }
   .service-grid { grid-template-columns: 1fr; }
   .service-card { display: grid; grid-template-columns: 220px 1fr; }
   .service-media { height: 100%; min-height: 220px; }
@@ -707,6 +720,8 @@ button { font: inherit; }
   html, body { max-width: 100%; overflow-x: hidden; }
   .announcement { font-size: .58rem; gap: .55rem; }
   .hero h1 { font-size: 2.15rem; line-height: 1.35; }
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-actions .button { width: 100%; }
   .trust-row { gap: .4rem; }
   .trust-row div { padding-left: .45rem; }
   .trust-row span { font-size: .52rem; }
