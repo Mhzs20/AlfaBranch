@@ -1,0 +1,54 @@
+/*
+ * HQ media presentation
+ * All photographic files are original uploads. These rules crop only in layout;
+ * no image pixels are resampled or recompressed for the website.
+ */
+img[data-original-quality='true'] {
+  image-rendering: auto;
+}
+
+.crop-bridal-dark { object-position: 50% 20% !important; }
+.crop-bridal-blonde { object-position: 50% 24% !important; }
+.crop-makeup-blonde { object-position: 50% 23% !important; }
+.crop-makeup-sleek { object-position: 50% 22% !important; }
+.crop-updo-back { object-position: 50% 27% !important; }
+.crop-updo-side { object-position: 50% 35% !important; }
+.crop-updo-red { object-position: 50% 31% !important; }
+
+/* Keep originals sharp and let the browser crop them to each card instead of exporting low-res derivatives. */
+.service-image img,
+.gallery-item img,
+.portrait-card img,
+.updo-card img,
+.hero-photo img,
+.hair-image img {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* The supplied screenshots have phone UI / black bars around some works.
+   In the full-screen viewer we crop those margins while still displaying the exact original file. */
+.lightbox img.lightbox-cropped-original {
+  width: min(72vw, 760px);
+  height: min(84vh, 980px);
+  object-fit: cover;
+  border-radius: 22px;
+}
+
+/* Original 2953×4134 logo PNG and its lossless crop need contain, never cover. */
+.brand img,
+.footer-brand img,
+.logo-float img,
+.contact-logo img {
+  object-fit: contain !important;
+}
+
+/* Native WebM/MP4 salon video */
+.hair-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 23px;
+  background: #211a15;
+}
